@@ -5,6 +5,7 @@ package com.thoughtworks.parking_lot.controller;
 import com.google.gson.Gson;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -16,6 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -45,6 +49,22 @@ class ParkingLotControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().json(result));
+    }
+    @Test
+    void should_return_the_parkingLot_List_when_delete_a_ParkingLost() throws Exception {
+        Gson gson = new Gson();
+        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
+        ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
+        String result=gson.toJson(parkingLot1);
+        String result2=gson.toJson(parkingLot2);
+        parkingLotRepository.save(parkingLot1);
+        parkingLotRepository.save(parkingLot2);
+
+        mockMvc.perform(delete("/parking-lots/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(content().json(result2));
     }
 
 }
