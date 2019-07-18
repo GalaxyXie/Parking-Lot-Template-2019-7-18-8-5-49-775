@@ -99,9 +99,28 @@ class ParkingLotControllerTest {
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
         String result = gson.toJson(parkingLot1);
-        when(parkingLotRepository.findById(1).get().getName()).thenReturn("Zhou'sParkingLot");
+        when(parkingLotRepository.findById(1).get()).thenReturn(parkingLot1);
 
         mockMvc.perform(get("/parking-lots/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(content().json(result));
+    }
+    @Test
+    void should_return_the_parkingLot_when_update_ParkingLots_by_ID() throws Exception {
+        Gson gson = new Gson();
+        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
+        ParkingLot parkingLot2 = new ParkingLot("Zhou'sParkingLot",25,"changsha");
+        parkingLot1.setId(1);
+        parkingLot2.setId(2);
+        List<ParkingLot>parkingLots=new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        String result = gson.toJson(parkingLot1);
+        when(parkingLotRepository.findById(1).get().getName()).thenReturn("Zhou'sParkingLot");
+
+        mockMvc.perform(get("/parking-lots/1/capacity/{capacity}"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))

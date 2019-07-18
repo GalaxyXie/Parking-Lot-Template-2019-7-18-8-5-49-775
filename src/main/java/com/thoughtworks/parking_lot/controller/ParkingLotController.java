@@ -33,8 +33,8 @@ public class ParkingLotController {
     public ResponseEntity UpdateParkingLotsById(@PathVariable int Id){
         return parkingLostService.FindParkingLotById(Id);
     }
-//    @PutMapping("/parking-lots/{Id}/capacity/{capacity}")
-//    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
-//
-//    }
+    @PutMapping("/parking-lots/{Id}/capacity/{capacity}")
+    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
+        return parkingLostService.UpdateParkingLotsById(Id,Capacity);
+    }
 }

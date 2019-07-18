@@ -10,4 +10,5 @@ public interface ParkingLostService {
     public ResponseEntity createParkingLost(ParkingLot parkingLot);
     public ResponseEntity FindParkingLotsByPage(int Page);
     public ResponseEntity FindParkingLotById(int id);
+    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity);
 }
