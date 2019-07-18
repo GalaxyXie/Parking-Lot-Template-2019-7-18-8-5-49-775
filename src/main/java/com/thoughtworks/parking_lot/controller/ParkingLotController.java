@@ -17,8 +17,12 @@ public class ParkingLotController {
     public ResponseEntity createParkingLost(@RequestBody ParkingLot parkingLot){
         return parkingLostService.createParkingLost(parkingLot);
     }
-    @DeleteMapping("/parking-lots/{index}")
-    public ResponseEntity DeleteCompany(@PathVariable int index){
-        return parkingLostService.DeleteCompany(index);
+    @DeleteMapping(value = "/parking-lots",params = "page")
+    public ResponseEntity DeleteParkingLot(@PathVariable int page){
+        return parkingLostService.DeleteParkingLot(page);
+    }
+    @GetMapping("/parking-lots/{Id}")
+    public ResponseEntity FindParkingLotsByPage(@PathVariable int Id){
+        return parkingLostService.FindParkingLotsById(Id);
     }
 }

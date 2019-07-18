@@ -9,4 +9,5 @@ public interface ParkingLostService {
     public ResponseEntity DeleteParkingLot(@PathVariable int index);
     public ResponseEntity createParkingLost(ParkingLot parkingLot);
     public ResponseEntity FindParkingLotsByPage(int Page);
+    public ResponseEntity FindParkingLotsById(int id);
 }

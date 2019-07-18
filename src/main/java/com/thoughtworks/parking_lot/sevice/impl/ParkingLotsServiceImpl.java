@@ -30,4 +30,7 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
                 .skip((Page-1)*pagesize)
                 .limit(pagesize));
     }
+    public ResponseEntity FindParkingLotsById(int Id){
+        return ResponseEntity.ok(parkingLotRepository.findById(Id));
+    }
 }
