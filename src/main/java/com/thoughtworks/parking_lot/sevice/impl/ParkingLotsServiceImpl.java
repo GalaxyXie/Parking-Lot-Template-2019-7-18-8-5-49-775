@@ -17,6 +17,7 @@ import java.util.Optional;
 public class ParkingLotsServiceImpl implements ParkingLostService {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
+
     public ResponseEntity DeleteParkingLot( int index){
         parkingLotRepository.deleteById(index);
         List<ParkingLot>parkingLots=parkingLotRepository.findAll();

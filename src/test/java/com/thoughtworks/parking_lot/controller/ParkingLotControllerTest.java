@@ -5,6 +5,7 @@ package com.thoughtworks.parking_lot.controller;
 import com.google.gson.Gson;
 import com.thoughtworks.parking_lot.model.ParkingLot;
 import com.thoughtworks.parking_lot.repository.ParkingLotRepository;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -43,7 +45,7 @@ class ParkingLotControllerTest {
 
         ParkingLot parkingLot = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
         String result=gson.toJson(parkingLot);
-        Mockito.when(parkingLotRepository.save(parkingLot)).thenReturn(parkingLot);
+        when(parkingLotRepository.save(parkingLot)).thenReturn(parkingLot);
         mockMvc.perform(post("/parking-lots").contentType(MediaType.APPLICATION_JSON)
                 .content(result))
                 .andDo(print())
@@ -56,12 +58,12 @@ class ParkingLotControllerTest {
         Gson gson = new Gson();
         ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
         ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
-        String result=gson.toJson(parkingLot1);
-        String result2=gson.toJson(parkingLot2);
-        parkingLotRepository.save(parkingLot1);
-        parkingLotRepository.save(parkingLot2);
+
         List<ParkingLot>parkingLots=new ArrayList<>();
+        parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
+
+        when(parkingLotRepository.findAll()).thenReturn(parkingLots);
         mockMvc.perform(delete("/parking-lots/0"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -73,21 +75,37 @@ class ParkingLotControllerTest {
         Gson gson = new Gson();
         ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
         ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
-        String result=gson.toJson(parkingLot1);
-        String result2=gson.toJson(parkingLot2);
-        mockMvc.perform(post("/parking-lots").contentType(MediaType.APPLICATION_JSON)
-                .content(result));
-        mockMvc.perform(post("/parking-lots").contentType(MediaType.APPLICATION_JSON)
-                .content(result2));
-//        System.out.println(parkingLotRepository.findAll().size());
+
         List<ParkingLot>parkingLots=new ArrayList<>();
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
+
+        when(parkingLotRepository.findAll()).thenReturn(parkingLots);
+
         mockMvc.perform(get("/parking-lots?page=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().json(gson.toJson(parkingLots, List.class)));
+    }
+    @Test
+    void should_return_the_parkingLot_when_find_ParkingLots_by_ID() throws Exception {
+        Gson gson = new Gson();
+        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
+        ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
+        parkingLot1.setId(1);
+        parkingLot2.setId(2);
+        List<ParkingLot>parkingLots=new ArrayList<>();
+        parkingLots.add(parkingLot1);
+        parkingLots.add(parkingLot2);
+        String result = gson.toJson(parkingLot1);
+        when(parkingLotRepository.findById(1).get().getName()).thenReturn("Zhou'sParkingLot");
+
+        mockMvc.perform(get("/parking-lots/1"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(content().json(result));
     }
 
 }
