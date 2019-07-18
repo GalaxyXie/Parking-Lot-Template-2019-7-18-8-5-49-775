@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ParkingLotsServiceImpl implements ParkingLostService {
     @Autowired
@@ -30,7 +32,13 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
                 .skip((Page-1)*pagesize)
                 .limit(pagesize));
     }
-    public ResponseEntity FindParkingLotsById(int Id){
+    public ResponseEntity FindParkingLotById(int Id){
         return ResponseEntity.ok(parkingLotRepository.findById(Id));
+    }
+    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
+        ParkingLot parkingLot=parkingLotRepository.findById(Id).get();
+        parkingLot.setCapacity(Capacity);
+        return ResponseEntity.ok(parkingLot);
+
     }
 }

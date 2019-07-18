@@ -17,12 +17,24 @@ public class ParkingLotController {
     public ResponseEntity createParkingLost(@RequestBody ParkingLot parkingLot){
         return parkingLostService.createParkingLost(parkingLot);
     }
-    @DeleteMapping(value = "/parking-lots",params = "page")
-    public ResponseEntity DeleteParkingLot(@PathVariable int page){
-        return parkingLostService.DeleteParkingLot(page);
+    @DeleteMapping(value = "/parking-lots/{Id}")
+    public ResponseEntity DeleteParkingLot(@PathVariable int Id){
+        return parkingLostService.DeleteParkingLot(Id);
+    }
+    @GetMapping(value = "/parking-lots",params = {"page"})
+    public ResponseEntity FindParkingLotsByPage(@RequestParam int page){
+        return parkingLostService.FindParkingLotsByPage(page);
     }
     @GetMapping("/parking-lots/{Id}")
-    public ResponseEntity FindParkingLotsByPage(@PathVariable int Id){
-        return parkingLostService.FindParkingLotsById(Id);
+    public ResponseEntity FindParkingLotById(@PathVariable int Id){
+        return parkingLostService.FindParkingLotById(Id);
     }
+    @PutMapping("/parking-lots/{Id}")
+    public ResponseEntity UpdateParkingLotsById(@PathVariable int Id){
+        return parkingLostService.FindParkingLotById(Id);
+    }
+//    @PutMapping("/parking-lots/{Id}/capacity/{capacity}")
+//    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
+//
+//    }
 }
