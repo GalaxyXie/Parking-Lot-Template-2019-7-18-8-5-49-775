@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 @Service
 public interface ParkingLostService {
-    public ResponseEntity DeleteCompany(@PathVariable int index);
+    public ResponseEntity DeleteParkingLot(@PathVariable int index);
     public ResponseEntity createParkingLost(ParkingLot parkingLot);
+    public ResponseEntity FindParkingLotsByPage(int Page);
 }

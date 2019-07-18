@@ -15,7 +15,7 @@ import java.util.List;
 public class ParkingLotsServiceImpl implements ParkingLostService {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
-    public ResponseEntity DeleteCompany( int index){
+    public ResponseEntity DeleteParkingLot( int index){
         parkingLotRepository.deleteById(index);
         List<ParkingLot>parkingLots=parkingLotRepository.findAll();
         return ResponseEntity.ok(parkingLots);
@@ -23,5 +23,11 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
     public ResponseEntity createParkingLost(ParkingLot parkingLot){
         parkingLotRepository.save(parkingLot);
         return ResponseEntity.ok(parkingLot);
+    }
+    public ResponseEntity FindParkingLotsByPage(int Page){
+        int pagesize=15;
+        return ResponseEntity.ok(parkingLotRepository.findAll().stream()
+                .skip((Page-1)*pagesize)
+                .limit(pagesize));
     }
 }
