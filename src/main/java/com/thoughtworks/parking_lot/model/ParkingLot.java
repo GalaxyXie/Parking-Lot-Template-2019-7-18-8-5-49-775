@@ -4,6 +4,7 @@ package com.thoughtworks.parking_lot.model;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name="parkinglot")
@@ -14,6 +15,7 @@ public class ParkingLot {
     private int id;
     @Column(unique = true)
     private  String name;
+    @Min(0)
     private int capacity = 10;
     private String position;
     public ParkingLot(){};

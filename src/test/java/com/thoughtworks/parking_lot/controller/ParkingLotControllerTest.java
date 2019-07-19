@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.neo4j.AutoConfigureDataNeo4j;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -29,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 @ExtendWith(SpringExtension.class)
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class ParkingLotControllerTest {
@@ -118,7 +119,7 @@ class ParkingLotControllerTest {
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
         String result = gson.toJson(parkingLot1);
-        when(parkingLotRepository.findById(1).get().getName()).thenReturn("Zhou'sParkingLot");
+        when(parkingLotRepository.findById(1).get()).thenReturn(parkingLot1);
 
         mockMvc.perform(get("/parking-lots/1/capacity/{capacity}"))
                 .andDo(print())

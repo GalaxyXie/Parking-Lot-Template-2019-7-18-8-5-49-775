@@ -11,7 +11,14 @@ buildscript {
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
     }
 }
+plugins {
+    id "org.flywaydb.flyway" version "5.2.4"
+}
 
+flyway {
+    url = 'jdbc:h2:file:./db/testdb'
+    user = 'sa'
+}
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -34,6 +41,10 @@ dependencies {
     compile 'com.h2database:h2'
     compile 'com.google.code.gson:gson:2.8.4'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+
+
+    compile 'org.flywaydb:flyway-core:5.2.4'
+
 
     
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.0.0')
