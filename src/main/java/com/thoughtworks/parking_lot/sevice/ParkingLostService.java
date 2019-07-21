@@ -14,5 +14,5 @@ public interface ParkingLostService {
     public void DeleteParkingLot( int index);
     public  List<ParkingLot> FindParkingLotsByPage(int Page);
     public ParkingLot FindParkingLotById(int Id);
-    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity);
+    public ParkingLot UpdateParkingLotCapacityById(int Id,ParkingLot parkingLot);
 }

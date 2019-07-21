@@ -36,10 +36,11 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
 
         return parkingLotRepository.findById(Id).get();
     }
-    public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
-        ParkingLot parkingLot=parkingLotRepository.findById(Id).get();
-        parkingLot.setCapacity(Capacity);
-        return ResponseEntity.ok(parkingLot);
+    public ParkingLot UpdateParkingLotCapacityById(int Id,ParkingLot parkingLot){
+        ParkingLot oldParkingLot=parkingLotRepository.findById(Id).get();
+        oldParkingLot.setCapacity(parkingLot.getCapacity());
+        parkingLotRepository.save(oldParkingLot);
+        return oldParkingLot;
 
     }
 }

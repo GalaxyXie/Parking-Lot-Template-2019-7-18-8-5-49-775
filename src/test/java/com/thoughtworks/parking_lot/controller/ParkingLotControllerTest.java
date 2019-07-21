@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.any;
 import static org.hamcrest.Matchers.containsString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -93,25 +94,21 @@ class ParkingLotControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().json(result));
     }
-/*
-    @Test
-    void should_return_the_parkingLot_when_update_ParkingLots_by_ID() throws Exception {
-        Gson gson = new Gson();
-        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
-        ParkingLot parkingLot2 = new ParkingLot("Zhou'sParkingLot",25,"changsha");
-        parkingLot1.setId(1);
-        parkingLot2.setId(2);
-        List<ParkingLot>parkingLots=new ArrayList<>();
-        parkingLots.add(parkingLot1);
-        parkingLots.add(parkingLot2);
-        String result = gson.toJson(parkingLot1);
-        when(parkingLotRepository.findById(1).get()).thenReturn(parkingLot1);
 
-        mockMvc.perform(get("/parking-lots/1/capacity/{capacity}"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json(result));
+    @Test
+    void should_return_the_parkingLot_when_update_ParkingLots_Capacity_by_ID() throws Exception {
+        Gson gson = new Gson();
+        ParkingLot oldParkingLot = new ParkingLot("Zhou'sParkingLot",15,"changsha");
+        ParkingLot newParkingLot = new ParkingLot("Zhou'sParkingLot",25,"changsha");
+        oldParkingLot.setId(1);
+        newParkingLot.setId(1);
+        when(parkingLostService.UpdateParkingLotCapacityById(1,newParkingLot)).thenReturn(newParkingLot);
+        String result=gson.toJson(newParkingLot);
+        mockMvc.perform(put("/parking-lots/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(gson.toJson(newParkingLot))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
-*/
+
 }
