@@ -17,10 +17,13 @@ public class ParkingLotController {
     public ResponseEntity createParkingLost(@RequestBody ParkingLot parkingLot){
         return ResponseEntity.ok(parkingLostService.createParkingLost(parkingLot));
     }
+
     @DeleteMapping(value = "/parking-lots/{Id}")
     public ResponseEntity DeleteParkingLot(@PathVariable int Id){
-        return parkingLostService.DeleteParkingLot(Id);
+        parkingLostService.DeleteParkingLot(Id);
+        return ResponseEntity.accepted().build();
     }
+
     @GetMapping(value = "/parking-lots",params = {"page"})
     public ResponseEntity FindParkingLotsByPage(@RequestParam int page){
         return parkingLostService.FindParkingLotsByPage(page);

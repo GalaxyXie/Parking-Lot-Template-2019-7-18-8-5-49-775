@@ -52,24 +52,13 @@ class ParkingLotControllerTest {
                 .content(result))
                 .andExpect(status().isOk());
     }
-    /*
+
     @Test
-    void should_return_the_parkingLot_List_when_delete_a_ParkingLost() throws Exception {
-        Gson gson = new Gson();
-        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
-        ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
-
-        List<ParkingLot>parkingLots=new ArrayList<>();
-        parkingLots.add(parkingLot1);
-        parkingLots.add(parkingLot2);
-
-        when(parkingLotRepository.findAll()).thenReturn(parkingLots);
-        mockMvc.perform(delete("/parking-lots/0"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-        .andExpect(content().json(gson.toJson(parkingLots, List.class)));
+    void should_return_the_status_when_delete_a_ParkingLost_success() throws Exception {
+        mockMvc.perform(delete("/parking-lots/1"))
+                .andExpect(status().isAccepted());
     }
+    /*
     @Test
     void should_return_the_parkingLot_List_when_find_ParkingLots_by_Page() throws Exception {
         Gson gson = new Gson();

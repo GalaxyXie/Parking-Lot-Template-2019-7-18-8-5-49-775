@@ -22,10 +22,8 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
     public ParkingLot createParkingLost(ParkingLot parkingLot){
         return parkingLotRepository.save(parkingLot);
     }
-    public ResponseEntity DeleteParkingLot( int index){
+    public void DeleteParkingLot( int index){
         parkingLotRepository.deleteById(index);
-        List<ParkingLot>parkingLots=parkingLotRepository.findAll();
-        return ResponseEntity.ok(parkingLots);
     }
     public ResponseEntity FindParkingLotsByPage(int Page){
         int pagesize=15;

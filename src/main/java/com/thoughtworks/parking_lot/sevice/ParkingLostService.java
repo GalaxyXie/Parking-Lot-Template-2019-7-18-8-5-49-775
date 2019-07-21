@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ParkingLostService {
 
     public ParkingLot createParkingLost(ParkingLot parkingLot);
-    public ResponseEntity DeleteParkingLot(@PathVariable int index);
+    public void DeleteParkingLot( int index);
     public ResponseEntity FindParkingLotsByPage(int Page);
     public ResponseEntity FindParkingLotById(int id);
     public ResponseEntity UpdateParkingLotsById(int Id,int Capacity);
