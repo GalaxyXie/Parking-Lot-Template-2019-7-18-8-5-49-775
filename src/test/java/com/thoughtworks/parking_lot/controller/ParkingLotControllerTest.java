@@ -73,9 +73,9 @@ class ParkingLotControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(new Gson().toJson(parkingLots,List.class)));
     }
-    /*
+
     @Test
-    void should_return_the_parkingLot_when_find_ParkingLots_by_ID() throws Exception {
+    void should_return_the_parkingLot_when_find_ParkingLot_by_ID() throws Exception {
         Gson gson = new Gson();
         ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
         ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
@@ -85,7 +85,7 @@ class ParkingLotControllerTest {
         parkingLots.add(parkingLot1);
         parkingLots.add(parkingLot2);
         String result = gson.toJson(parkingLot1);
-        when(parkingLotRepository.findById(1).get()).thenReturn(parkingLot1);
+        when(parkingLostService.FindParkingLotById(1)).thenReturn(parkingLot1);
 
         mockMvc.perform(get("/parking-lots/1"))
                 .andDo(print())
@@ -93,7 +93,7 @@ class ParkingLotControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().json(result));
     }
-
+/*
     @Test
     void should_return_the_parkingLot_when_update_ParkingLots_by_ID() throws Exception {
         Gson gson = new Gson();
