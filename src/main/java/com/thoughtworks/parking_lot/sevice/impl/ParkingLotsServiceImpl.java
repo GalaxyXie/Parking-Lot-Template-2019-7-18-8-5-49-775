@@ -43,4 +43,12 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
         return oldParkingLot;
 
     }
+    public ParkingLot GetParkingLotHasParkingSpace(){
+        List<ParkingLot>parkingLots=parkingLotRepository.findAll();
+        ParkingLot parkingLot=parkingLots.stream().filter(parkingLotNotFull ->
+                parkingLotNotFull.getParkingPlace()>0)
+                .findFirst()
+                .orElse(null);
+        return  parkingLot;
+    };
 }

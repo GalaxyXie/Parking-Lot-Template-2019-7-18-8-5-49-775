@@ -20,6 +20,16 @@ public class ParkingLot {
     private String position;
     public ParkingLot(){};
 
+    public int getParkingPlace() {
+        return parkingPlace;
+    }
+
+    public void setParkingPlace(int parkingPlace) {
+        this.parkingPlace = parkingPlace;
+    }
+
+    @Min(0)
+    private int parkingPlace = 10;
     public ParkingLot(String name, int capacity, String position) {
         this.name = name;
         this.capacity = capacity;

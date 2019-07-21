@@ -15,4 +15,5 @@ public interface ParkingLostService {
     public  List<ParkingLot> FindParkingLotsByPage(int Page);
     public ParkingLot FindParkingLotById(int Id);
     public ParkingLot UpdateParkingLotCapacityById(int Id,ParkingLot parkingLot);
+    public ParkingLot GetParkingLotHasParkingSpace();
 }
