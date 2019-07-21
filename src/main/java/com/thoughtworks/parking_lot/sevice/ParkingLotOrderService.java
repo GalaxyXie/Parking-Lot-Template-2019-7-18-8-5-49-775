@@ -6,5 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ParkingLotOrderService {
-    public ParkingLotOrder park(Car car) throws Exception;
+    public ParkingLotOrder park(Car car,int Id) throws Exception;
+    public ParkingLotOrder fetch(int Id) throws Exception;
 }

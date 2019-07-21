@@ -21,6 +21,7 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
 
 
     public ParkingLot createParkingLost(ParkingLot parkingLot){
+
         return parkingLotRepository.save(parkingLot);
     }
     public void DeleteParkingLot( int index){
@@ -44,11 +45,12 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
 
     }
     public ParkingLot GetParkingLotHasParkingSpace(){
+
         List<ParkingLot>parkingLots=parkingLotRepository.findAll();
         ParkingLot parkingLot=parkingLots.stream().filter(parkingLotNotFull ->
                 parkingLotNotFull.getParkingPlace()>0)
                 .findFirst()
                 .orElse(null);
         return  parkingLot;
-    };
+    }
 }
