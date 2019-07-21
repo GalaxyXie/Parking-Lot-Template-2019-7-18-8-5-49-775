@@ -15,7 +15,7 @@ public class ParkingLotController {
     private ParkingLostService parkingLostService;
     @PostMapping("/parking-lots")
     public ResponseEntity createParkingLost(@RequestBody ParkingLot parkingLot){
-        return parkingLostService.createParkingLost(parkingLot);
+        return ResponseEntity.ok(parkingLostService.createParkingLost(parkingLot));
     }
     @DeleteMapping(value = "/parking-lots/{Id}")
     public ResponseEntity DeleteParkingLot(@PathVariable int Id){

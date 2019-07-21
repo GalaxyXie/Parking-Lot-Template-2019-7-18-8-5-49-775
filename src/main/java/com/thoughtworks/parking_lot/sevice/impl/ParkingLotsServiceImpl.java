@@ -18,14 +18,14 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
     @Autowired
     private ParkingLotRepository parkingLotRepository;
 
+
+    public ParkingLot createParkingLost(ParkingLot parkingLot){
+        return parkingLotRepository.save(parkingLot);
+    }
     public ResponseEntity DeleteParkingLot( int index){
         parkingLotRepository.deleteById(index);
         List<ParkingLot>parkingLots=parkingLotRepository.findAll();
         return ResponseEntity.ok(parkingLots);
-    }
-    public ResponseEntity createParkingLost(ParkingLot parkingLot){
-        parkingLotRepository.save(parkingLot);
-        return ResponseEntity.ok(parkingLot);
     }
     public ResponseEntity FindParkingLotsByPage(int Page){
         int pagesize=15;
