@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ParkingLotsServiceImpl implements ParkingLostService {
@@ -25,14 +26,15 @@ public class ParkingLotsServiceImpl implements ParkingLostService {
     public void DeleteParkingLot( int index){
         parkingLotRepository.deleteById(index);
     }
-    public ResponseEntity FindParkingLotsByPage(int Page){
+    public List<ParkingLot> FindParkingLotsByPage(int Page){
         int pagesize=15;
-        return ResponseEntity.ok(parkingLotRepository.findAll().stream()
+        return parkingLotRepository.findAll().stream()
                 .skip((Page-1)*pagesize)
-                .limit(pagesize));
+                .limit(pagesize).collect(Collectors.toList());
     }
-    public ResponseEntity FindParkingLotById(int Id){
-        return ResponseEntity.ok(parkingLotRepository.findById(Id));
+    public ParkingLot FindParkingLotById(int Id){
+
+        return parkingLotRepository.findById(Id).get();
     }
     public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
         ParkingLot parkingLot=parkingLotRepository.findById(Id).get();

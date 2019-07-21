@@ -26,16 +26,13 @@ public class ParkingLotController {
 
     @GetMapping(value = "/parking-lots",params = {"page"})
     public ResponseEntity FindParkingLotsByPage(@RequestParam int page){
-        return parkingLostService.FindParkingLotsByPage(page);
+        return ResponseEntity.ok(parkingLostService.FindParkingLotsByPage(page));
     }
     @GetMapping("/parking-lots/{Id}")
     public ResponseEntity FindParkingLotById(@PathVariable int Id){
-        return parkingLostService.FindParkingLotById(Id);
+        return ResponseEntity.ok(parkingLostService.FindParkingLotById(Id));
     }
-    @PutMapping("/parking-lots/{Id}")
-    public ResponseEntity UpdateParkingLotsById(@PathVariable int Id){
-        return parkingLostService.FindParkingLotById(Id);
-    }
+
     @PutMapping("/parking-lots/{Id}/capacity/{capacity}")
     public ResponseEntity UpdateParkingLotsById(int Id,int Capacity){
         return parkingLostService.UpdateParkingLotsById(Id,Capacity);

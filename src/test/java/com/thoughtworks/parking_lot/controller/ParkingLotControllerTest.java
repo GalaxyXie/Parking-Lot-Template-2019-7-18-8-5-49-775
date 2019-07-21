@@ -26,11 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -58,25 +59,21 @@ class ParkingLotControllerTest {
         mockMvc.perform(delete("/parking-lots/1"))
                 .andExpect(status().isAccepted());
     }
-    /*
+
     @Test
     void should_return_the_parkingLot_List_when_find_ParkingLots_by_Page() throws Exception {
-        Gson gson = new Gson();
-        ParkingLot parkingLot1 = new ParkingLot("Zhou'sParkingLot",35,"changsha");
-        ParkingLot parkingLot2 = new ParkingLot("Laura'sParkingLot",25,"zhuhai");
+        List<ParkingLot> parkingLots = new ArrayList<>(20);
+        parkingLots.add(new ParkingLot("Laura'sParkingLot",25,"zhuhai"));
 
-        List<ParkingLot>parkingLots=new ArrayList<>();
-        parkingLots.add(parkingLot1);
-        parkingLots.add(parkingLot2);
+        given(parkingLostService.FindParkingLotsByPage(1)).willReturn(parkingLots);
 
-        when(parkingLotRepository.findAll()).thenReturn(parkingLots);
-
-        mockMvc.perform(get("/parking-lots?page=1"))
-                .andDo(print())
+        mockMvc.perform(get("/parking-lots")
+                .param("page", "1")
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json(gson.toJson(parkingLots, List.class)));
+                .andExpect(content().json(new Gson().toJson(parkingLots,List.class)));
     }
+    /*
     @Test
     void should_return_the_parkingLot_when_find_ParkingLots_by_ID() throws Exception {
         Gson gson = new Gson();
@@ -96,6 +93,7 @@ class ParkingLotControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(content().json(result));
     }
+
     @Test
     void should_return_the_parkingLot_when_update_ParkingLots_by_ID() throws Exception {
         Gson gson = new Gson();
